@@ -92,6 +92,13 @@ def inv_to_csv():
     return df_hold
 
 
+def inv_cost():
+    inv_to_csv()
+    df = pd.read_csv(r"src/assets/temp/inv.csv", index_col=0)
+    cost = df["Price"].sum()
+    return cost
+
+
 def compression_ores():
     inv_to_csv()
     hold_ore = []
@@ -137,4 +144,5 @@ def main(thresh):
         sleep(30)
 
 
-main(80)
+# main(50)
+print(inv_cost())
