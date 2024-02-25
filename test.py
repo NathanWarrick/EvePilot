@@ -13,6 +13,6 @@ moon_ores = [
 
 hold_ore = []
 
-for ore in moon_ores:
-    if df["Name"].eq(ore).any():
-        hold_ore.append(ore)
+# for ore in moon_ores:
+#     if df["Name"].eq(ore).any():
+#         hold_ore.append(ore)

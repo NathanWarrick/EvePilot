@@ -5,10 +5,18 @@ from PIL import Image
 import cv2
 import numpy as np
 from pynput.keyboard import Key, Controller
-import win32clipboard
 import pandas as pd
 
 keyboard = Controller()
+
+moon_ores = [
+    "Bitumens",
+    "Brimful Bitumens",
+    "Coesite",
+    "Brimful Coesite",
+    "Sylvite",
+    "Brimful Sylvite",
+]
 
 
 def click_left(x, y):
@@ -27,16 +35,18 @@ def click_right(x, y):
 
 def hold_full():
     x, y = fnc.imagesearch(r"src\assets\stack_all.png", 0.95)
+    x_search, y_search = fnc.imagesearch(r"src\assets\search.png", 0.95)
     # Reverse coordinate correction
     x = x - win32api.GetSystemMetrics(76)
     y = y - win32api.GetSystemMetrics(77)
-    # print(x, y)
+    x_search = x_search - win32api.GetSystemMetrics(76)
+    y_search = y_search - win32api.GetSystemMetrics(77)
 
     with mss.mss() as sct:
-        x_offset = x + 68
+        x_offset = x + 44
         y_offset = y - 11
-        width = 209
-        height = 8
+        width = x_search - x - 111
+        height = 1
 
         sct_img = sct.grab(sct.monitors[0])
         img = Image.frombytes("RGB", sct_img.size, sct_img.bgra, "raw", "BGRX")
@@ -48,7 +58,8 @@ def hold_full():
         im_bw = cv2.threshold(im_gray, thresh, 255, cv2.THRESH_BINARY)[1]
         cv2.imwrite(r"src/assets/temp/inv_bw.png", im_bw)
 
-        percent_full = np.sum(im_bw == 255) / 1664
+        total_area = np.sum(im_bw == 255) + np.sum(im_bw == 0)
+        percent_full = np.sum(im_bw == 255) / total_area
         percent_full = int(percent_full * 100)
     return percent_full
 
@@ -64,6 +75,9 @@ def inv_to_csv():
     keyboard.type("c")
     sleep(0.1)
     keyboard.release(Key.ctrl.value)
+    sleep(0.5)
+    x, y = fnc.imagesearch(r"src\assets\stack_all.png", 0.90)
+    fnc.click_left(x, int(y - 35))
 
     df_hold = pd.read_clipboard(
         sep="\t", names=["Name", "Quantity", "Group", "Size", "Slot", "Volume", "Price"]
@@ -78,13 +92,28 @@ def inv_to_csv():
     return df_hold
 
 
-def main():
+def compression_ores():
+    inv_to_csv()
+    hold_ore = []
+    df = pd.read_csv(r"src/assets/temp/inv.csv", index_col=0)
+    for ore in moon_ores:
+        if df["Name"].eq(ore).any():
+            hold_ore.append(ore)
+    return hold_ore
+
+
+def main(thresh):
 
     while None != 0:
-        if hold_full() > 50:
-            if fnc.imagesearch(r"src\assets\ore\Brimful_Bitumens.png") != [-1, -1]:
-                print("Compressing!")
-                x, y = fnc.imagesearch(r"src\assets\ore\Brimful_Bitumens.png", 0.95)
+        if hold_full() >= thresh:
+            hold_ore = compression_ores()
+            for ore in hold_ore:
+                print("Compressing " + ore)
+                ore_string = r"src\assets\ore\\" + ore + ".png"
+
+                x, y = fnc.imagesearch(ore_string, 0.95)
+                click_left(x, y)
+                sleep(0.2)
                 click_right(x, y)
                 sleep(0.2)
 
@@ -101,10 +130,11 @@ def main():
 
                 x, y = fnc.imagesearch(r"src\assets\stack_all.png", 0.95)
                 click_left(x, y)
-        else:
-            print("You have only used " + str(hold_full()) + "%")
-            sleep(60)
+
+                x, y = fnc.imagesearch(r"src\assets\my filters.png", 0.95)
+                click_left(x, y)
+        print("You have only used " + str(hold_full()) + "%")
+        sleep(30)
 
 
-main()
-# print(inv_to_csv())
+main(80)
