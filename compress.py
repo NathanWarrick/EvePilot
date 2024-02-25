@@ -4,6 +4,11 @@ import win32api, win32con, mss
 from PIL import Image
 import cv2
 import numpy as np
+from pynput.keyboard import Key, Controller
+import win32clipboard
+import pandas as pd
+
+keyboard = Controller()
 
 
 def click_left(x, y):
@@ -48,14 +53,39 @@ def hold_full():
     return percent_full
 
 
+def inv_to_csv():
+    x, y = fnc.imagesearch(r"src\assets\stack_all.png", 0.90)
+    fnc.click_left(x, y)
+    sleep(0.1)
+    keyboard.press(Key.ctrl.value)
+    sleep(0.1)
+    keyboard.type("a")
+    sleep(0.1)
+    keyboard.type("c")
+    sleep(0.1)
+    keyboard.release(Key.ctrl.value)
+
+    df_hold = pd.read_clipboard(
+        sep="\t", names=["Name", "Quantity", "Group", "Size", "Slot", "Volume", "Price"]
+    )
+
+    # Clean up the dataframe
+    df_hold = df_hold.replace(" ISK", "", regex=True)
+    df_hold = df_hold.replace(",", "", regex=True)
+    df_hold = df_hold.replace(" m3", "", regex=True)
+
+    df_hold.to_csv(r"src/assets/temp/inv.csv")
+    return df_hold
+
+
 def main():
 
     while None != 0:
-        if hold_full() > 75:
+        if hold_full() > 50:
             if fnc.imagesearch(r"src\assets\ore\Brimful_Bitumens.png") != [-1, -1]:
                 print("Compressing!")
                 x, y = fnc.imagesearch(r"src\assets\ore\Brimful_Bitumens.png", 0.95)
-                click_right(x, y - 40)
+                click_right(x, y)
                 sleep(0.2)
 
                 x, y = fnc.imagesearch(r"src\assets\compress.png", 0.95)
@@ -71,10 +101,10 @@ def main():
 
                 x, y = fnc.imagesearch(r"src\assets\stack_all.png", 0.95)
                 click_left(x, y)
-            inv_value = hold_full()
         else:
             print("You have only used " + str(hold_full()) + "%")
-            sleep(600)
+            sleep(60)
 
 
 main()
+# print(inv_to_csv())

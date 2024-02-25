@@ -3,6 +3,7 @@ import numpy as np
 import win32gui
 import re
 import random
+from time import sleep
 
 keyboard = pynput.keyboard.Controller()
 curr_working_dir = os.getcwd()
@@ -17,7 +18,10 @@ ymax = win32api.GetSystemMetrics(79)
 
 def click_left(x, y):
     if x is not None and y is not None:
+        x = int(x)
+        y = int(y)
         win32api.SetCursorPos((x, y))
+        sleep(0.1)
         win32api.mouse_event(win32con.MOUSEEVENTF_LEFTDOWN, x, y, 0, 0)
         win32api.mouse_event(win32con.MOUSEEVENTF_LEFTUP, x, y, 0, 0)
     else:
@@ -26,9 +30,16 @@ def click_left(x, y):
 
 
 def click_right(x, y):
-    win32api.SetCursorPos((x, y))
-    win32api.mouse_event(win32con.MOUSEEVENTF_RIGHTDOWN, x, y, 0, 0)
-    win32api.mouse_event(win32con.MOUSEEVENTF_RIGHTUP, x, y, 0, 0)
+    if x is not None and y is not None:
+        x = int(x)
+        y = int(y)
+        win32api.SetCursorPos((x, y))
+        sleep(0.1)
+        win32api.mouse_event(win32con.MOUSEEVENTF_RIGHTDOWN, x, y, 0, 0)
+        win32api.mouse_event(win32con.MOUSEEVENTF_RIGHTUP, x, y, 0, 0)
+    else:
+        win32api.mouse_event(win32con.MOUSEEVENTF_RIGHTDOWN, 0, 0)
+        win32api.mouse_event(win32con.MOUSEEVENTF_RIGHTUP, 0, 0)
 
 
 def kbd_type(text: str):
