@@ -89,7 +89,7 @@ def hold_full():
 
 
 def inv_analyse(
-    search,
+    search="*",
 ):  # TODO Use to go home if compressed ore reaches a certain number
     """Returns the total cost and volume. \n
     Call inv_to_csv() for the most up to date information

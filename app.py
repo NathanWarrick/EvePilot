@@ -10,7 +10,7 @@ curr_working_dir = os.getcwd()
 def auto_compress(volume_max=10000, price_max=5000000):
 
     shp.inv_to_csv()
-    inv = shp.inv_analyse("*")
+    inv = shp.inv_analyse()
     cost = int(inv[0])
     volume = int(inv[1])
 
