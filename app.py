@@ -16,7 +16,7 @@ def auto_compress(volume_max=10000, price_max=5000000):
 
     print("VOLUME")
     print("Volume set at: " + str(volume_max) + " m3")
-    print("Current Volume:" + str(volume) + " m3")
+    print("Current Volume: " + str(volume) + " m3")
 
     print("")
 
@@ -63,6 +63,6 @@ def auto_compress(volume_max=10000, price_max=5000000):
         sleep(60)
 
 
-# done = False
-# while done != True:
-#     auto_compress(20000, 1000000000)
+done = False
+while done != True:
+    auto_compress(20000, 1000000000)
