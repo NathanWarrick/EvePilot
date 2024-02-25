@@ -2,7 +2,9 @@ import os
 from time import sleep
 
 import src.plugins.ship as shp
+import src.plugins.navigation as nav
 import src.functions as fnc
+
 
 curr_working_dir = os.getcwd()
 
@@ -66,3 +68,5 @@ def auto_compress(volume_max=10000, price_max=5000000):
 done = False
 while done != True:
     auto_compress(20000, 1000000000)
+
+# nav.search("Rauntaka - Cookie Dough")
