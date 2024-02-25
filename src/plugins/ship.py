@@ -44,7 +44,7 @@ def inv_to_csv():
 
     # Export Dataframe to csv
     df_hold.to_csv(r"src/assets/temp/inv.csv")
-    print("Inventory Exported")
+    # print("Inventory Exported")
 
 
 def hold_full():
