@@ -10,7 +10,7 @@ curr_working_dir = os.getcwd()
 def auto_compress(volume_max=10000, price_max=5000000):
 
     shp.inv_to_csv()
-    inv = shp.inv_analyse()
+    inv = shp.inv_analyse("*")
     cost = int(inv[0])
     volume = int(inv[1])
 
@@ -27,7 +27,7 @@ def auto_compress(volume_max=10000, price_max=5000000):
     print("")
 
     if cost >= price_max:
-        print("Piloting back to station!")
+        print("Piloting back to station!")  # TODO Add piloting
         pass
     elif volume >= volume_max:
         for ore in shp.compression_ores():
@@ -63,6 +63,6 @@ def auto_compress(volume_max=10000, price_max=5000000):
         sleep(60)
 
 
-done = False
-while done != True:
-    auto_compress(10000, 1000000000)
+# done = False
+# while done != True:
+#     auto_compress(20000, 1000000000)

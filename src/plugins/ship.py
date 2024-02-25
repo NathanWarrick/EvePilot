@@ -18,6 +18,11 @@ def inv_to_csv():
     Call before making inventory related calculations"""
 
     # Select all and stack, and copy to clipboard
+    # try:
+    #     fnc.imagesearch(r"src\assets\stack_all.png", 0.99)
+    #     print("Found")
+    # except:
+    #     print("Image not found")
     x, y = fnc.imagesearch(r"src\assets\stack_all.png", 0.90)
     fnc.click_left(x, y)
     sleep(0.1)
@@ -83,18 +88,23 @@ def hold_full():
     return percent_full
 
 
-def inv_analyse():
+def inv_analyse(
+    search,
+):  # TODO Use to go home if compressed ore reaches a certain number
     """Returns the total cost and volume. \n
     Call inv_to_csv() for the most up to date information
 
     :return: Cost, Volume
     :rtype: Tupple
     """
-
     df = pd.read_csv(r"src/assets/temp/inv.csv", index_col=0)
-
-    cost = df["Price"].sum()
-    volume = df["Volume"].sum()
+    if search != "*":
+        contain_values = df[df["Name"].str.contains(search)]
+        cost = contain_values["Price"].sum()
+        volume = contain_values["Volume"].sum()
+    else:
+        cost = df["Price"].sum()
+        volume = df["Volume"].sum()
     return cost, volume
 
 
@@ -111,3 +121,16 @@ def compression_ores():
         if df["Name"].eq(ore).any():
             hold_ore.append(ore)
     return hold_ore
+
+
+def compressed_ores():
+    """Retuns ores that have been compressed \n
+    Call inv_to_csv() for the most up to date information
+
+    :return: Compressed Ores
+    :rtype: List
+    """
+
+    df = pd.read_csv(r"src/assets/temp/inv.csv", index_col=0)
+    contain_values = df[df["Name"].str.contains("Compressed")]
+    return contain_values
