@@ -134,3 +134,18 @@ def compressed_ores():
     df = pd.read_csv(r"src/assets/temp/inv.csv", index_col=0)
     contain_values = df[df["Name"].str.contains("Compressed")]
     return contain_values
+
+
+def ores():
+    """Retuns all ores \n
+    Call inv_to_csv() for the most up to date information
+
+    :return: All Ores
+    :rtype: List
+    """
+    hold_ore = []
+    df = pd.read_csv(r"src/assets/temp/inv.csv", index_col=0)
+    for ore in info.ores:
+        if df["Name"].eq(ore).any():
+            hold_ore.append(ore)
+    return hold_ore

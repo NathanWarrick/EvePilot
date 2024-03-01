@@ -93,7 +93,7 @@ def clickon(image: str, confidence=0.9, clicktype="left", wait=0.1):
 
 def imagesearch(image: str, confidence=0.9):
     with mss.mss() as sct:
-        im = sct.grab(sct.monitors[0])
+        im = sct.grab(sct.monitors[1])  # Set to 0 to use virtual screen
         img_rgb = np.array(im)
         img_gray = cv2.cvtColor(img_rgb, cv2.COLOR_BGR2GRAY)
         template = cv2.imread(image, 0)
@@ -120,8 +120,8 @@ def imagesearch(image: str, confidence=0.9):
             map(lambda i, j: i + j, max_loc, templatesize)
         )  # Add the best match to half the image size to find the middle
 
-    x = x + win32api.GetSystemMetrics(76)
-    y = y + win32api.GetSystemMetrics(77)
+    # x = x + win32api.GetSystemMetrics(76)
+    # y = y + win32api.GetSystemMetrics(77)
 
     return x, y
 
