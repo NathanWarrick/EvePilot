@@ -23,7 +23,7 @@ def inv_to_csv():
     #     print("Found")
     # except:
     #     print("Image not found")
-    x, y = fnc.imagesearch(r"src\assets\stack_all.png", 0.90)
+    x, y = fnc.imagesearch(r"src\assets\stack_all.png", 0.90, 1)
     fnc.click_left(x, y)
     sleep(0.1)
     keyboard.press(Key.ctrl.value)
@@ -34,7 +34,7 @@ def inv_to_csv():
     sleep(0.1)
     keyboard.release(Key.ctrl.value)
     sleep(0.5)
-    x, y = fnc.imagesearch(r"src\assets\stack_all.png", 0.90)
+    x, y = fnc.imagesearch(r"src\assets\stack_all.png", 0.90, 1)
     fnc.click_left(x, int(y - 35))
 
     # Read from clipboard into a pd dataframe
@@ -58,8 +58,8 @@ def hold_full():
     :return: returns a percentage as an integer
     :rtype: int
     """
-    x, y = fnc.imagesearch(r"src\assets\stack_all.png", 0.95)
-    x_search, y_search = fnc.imagesearch(r"src\assets\search.png", 0.95)
+    x, y = fnc.imagesearch(r"src\assets\stack_all.png", 0.95, 1)
+    x_search, y_search = fnc.imagesearch(r"src\assets\search.png", 0.95, 1)
     # Reverse coordinate correction
     x = x - win32api.GetSystemMetrics(76)
     y = y - win32api.GetSystemMetrics(77)

@@ -31,30 +31,31 @@ def auto_compress(volume_max=10000, price_max=5000000):
         pass
     elif volume >= volume_max:
         for ore in shp.compression_ores():
-            print("Currently compressing: " + ore)
+            print("Currently compressing: " + ore + "\n")
             path = r"src\assets\ore\\" + ore + ".png"
+            sleep(0.2)
 
-            x, y = fnc.imagesearch(path, 0.95)
+            x, y = fnc.imagesearch(path, 0.95, 1)
             fnc.click_left(x, y)
             sleep(0.2)
             fnc.click_right(x, y)
             sleep(0.2)
 
-            x, y = fnc.imagesearch(r"src\assets\compress.png", 0.95)
+            x, y = fnc.imagesearch(r"src\assets\compress.png", 0.95, 1)
             fnc.click_left(x, y)
             sleep(0.2)
 
-            x, y = fnc.imagesearch(r"src\assets\compress_confirm.png", 0.95)
+            x, y = fnc.imagesearch(r"src\assets\compress_confirm.png", 0.95, 1)
             fnc.click_left(x, y)
             sleep(0.2)
 
-            x, y = fnc.imagesearch(r"src\assets\compress_cancel.png", 0.95)
+            x, y = fnc.imagesearch(r"src\assets\compress_cancel.png", 0.95, 1)
             fnc.click_left(x, y)
 
-            x, y = fnc.imagesearch(r"src\assets\stack_all.png", 0.95)
+            x, y = fnc.imagesearch(r"src\assets\stack_all.png", 0.95, 1)
             fnc.click_left(x, y)
 
-            x, y = fnc.imagesearch(r"src\assets\my filters.png", 0.95)
+            x, y = fnc.imagesearch(r"src\assets\my filters.png", 0.95, 1)
             fnc.click_left(x, y)
 
     else:
@@ -65,4 +66,4 @@ def auto_compress(volume_max=10000, price_max=5000000):
 
 done = False
 while done != True:
-    auto_compress(20000, 1000000000)
+    auto_compress(4000, 1000000000)
