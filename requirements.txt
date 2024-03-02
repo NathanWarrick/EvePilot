@@ -1,0 +1,9 @@
+mss
+numpy
+opencv_contrib_python
+opencv_python
+pandas
+Pillow
+Pillow
+pynput
+pywin32
