@@ -151,7 +151,7 @@ def auto_compress_jet(volume_max=10000, price_max=5000000):
 
 
 def auto_move(volume_max=5000, compression=False, Jet=False):
-    """Automatically moves ore into a nearby Orca's Fleet Hangar"""
+    """Automatically moves ore into a nearby Orca's Fleet Hangar, or Jettisons it"""
 
     shp.inv_to_csv()
     inv = shp.inv_analyse()
@@ -245,7 +245,23 @@ def auto_move(volume_max=5000, compression=False, Jet=False):
                 sleep(0.2)
 
     elif volume >= volume_max and Jet == True:
-        print("Jet code goes here")
+        print("Jetting All Ore!")  # TODO Add piloting
+        x, y = fnc.imagesearch(r"src\assets\stack_all.png", 0.90, 1)
+        fnc.click_left(x, y)
+        sleep(0.1)
+        keyboard.press(Key.ctrl.value)
+        sleep(0.1)
+        keyboard.type("a")
+        sleep(0.1)
+        keyboard.release(Key.ctrl.value)
+        sleep(0.5)
+        x, y = fnc.imagesearch(r"src\assets\stack_all.png", 0.90, 1)
+        fnc.click_right(x, int(y + 60))
+        sleep(0.5)
+        x, y = fnc.imagesearch(r"src\assets\jettison.png", 0.95, 1)
+        sleep(0.5)
+        fnc.click_left(x, y)
+        sleep(0.5)
 
     else:
         print("No thresholds met, waiting...")
@@ -254,5 +270,5 @@ def auto_move(volume_max=5000, compression=False, Jet=False):
 
 done = False
 while done != True:
-    auto_move(5000, False)
-    sleep(10)  # Run routine every 100 seconds
+    auto_move(6000, False, True)
+    sleep(100)  # Run routine every 100 seconds
