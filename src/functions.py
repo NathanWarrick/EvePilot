@@ -119,7 +119,7 @@ def imagesearch(image: str, confidence=0.9, screen=0):
 
         res = cv2.matchTemplate(img_gray, template, cv2.TM_CCOEFF_NORMED)
         min_val, max_val, min_loc, max_loc = cv2.minMaxLoc(res)
-        print(max_val)
+
         if max_val < confidence:
             return [-1, -1]
 

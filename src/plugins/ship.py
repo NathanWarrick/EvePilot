@@ -16,8 +16,7 @@ keyboard = Controller()
 def inv_to_csv():
     """Read contents of ore hold and export to '/src/assets/temp/inv.csv' \n
     Call before making inventory related calculations"""
-    if fnc.imagesearch(r"src\assets\0_items.png", 0.95, 1) != [-1, -1]:
-
+    if fnc.imagesearch(r"src\assets\0_items.png", 0.95, 1) == [-1, -1]:
         x, y = fnc.imagesearch(r"src\assets\stack_all.png", 0.90, 1)
         fnc.click_left(x, y)
         sleep(0.1)

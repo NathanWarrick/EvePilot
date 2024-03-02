@@ -158,7 +158,7 @@ def auto_move(volume_max=5000, compression=False, Jet=False):
     volume = int(inv[0])
     cost = int(inv[1])
 
-    print("VOLUME")
+    print("\nVOLUME")
     print("Volume set at: " + str(volume_max) + " m3")
     print("Current Volume: " + str(volume) + " m3")
 
@@ -178,8 +178,8 @@ def auto_move(volume_max=5000, compression=False, Jet=False):
     compressed_ores = shp.compressed_ores()[0]
     compressed_ores_cost = shp.compressed_ores()[1]
 
-    if volume >= volume_max:
-        print("You're running out of space!")
+    if volume >= volume_max and Jet == False:
+        print("You're running out of space! \n")
         if (
             compression == True and compressible_ores != []
         ):  # Compress Raw Ore if enabled
@@ -244,66 +244,15 @@ def auto_move(volume_max=5000, compression=False, Jet=False):
                 fnc.drag_left(x, y, orca_x, orca_y)
                 sleep(0.2)
 
-    # if cost >= price_max:
-    #     move = True
+    elif volume >= volume_max and Jet == True:
+        print("Jet code goes here")
 
-    #     compressed_ores = shp.compressed_ores()
-    #     if len(compressed_ores) > 0:
-    #         print("Moving Compressed Ore to Orca!")  # TODO Add piloting
-    #         sleep(0.2)
-
-    #         for ore in compressed_ores:
-    #             path = r"src\assets\ore\\" + ore + ".png"
-    #             sleep(0.2)
-
-    #             x, y = fnc.imagesearch(path, 0.95, 1)
-    #             orca_x, orca_y = fnc.imagesearch(
-    #                 r"src\assets\orca_fleet_hangar.png", 0.95, 1
-    #             )
-    #             fnc.click_left(x, y)
-    #             sleep(0.2)
-    #             fnc.drag_left(x, y, orca_x, orca_y)
-    #             sleep(0.2)
-
-    #     else:
-    #         print("Nothing to Move")
-
-    # if volume >= volume_max:
-    #     compress = True
-    #     for ore in shp.compressible_ores():
-    #         print("Currently compressing: " + ore + "\n")
-    #         path = r"src\assets\ore\\" + ore + ".png"
-    #         sleep(0.2)
-
-    #         x, y = fnc.imagesearch(path, 0.95, 1)
-    #         fnc.click_left(x, y)
-    #         sleep(0.2)
-    #         fnc.click_right(x, y)
-    #         sleep(0.2)
-
-    #         x, y = fnc.imagesearch(r"src\assets\compress.png", 0.95, 1)
-    #         fnc.click_left(x, y)
-    #         sleep(0.2)
-
-    #         x, y = fnc.imagesearch(r"src\assets\compress_confirm.png", 0.95, 1)
-    #         fnc.click_left(x, y)
-    #         sleep(0.2)
-
-    #         x, y = fnc.imagesearch(r"src\assets\compress_cancel.png", 0.95, 1)
-    #         fnc.click_left(x, y)
-
-    #         x, y = fnc.imagesearch(r"src\assets\stack_all.png", 0.95, 1)
-    #         fnc.click_left(x, y)
-
-    #         x, y = fnc.imagesearch(r"src\assets\my filters.png", 0.95, 1)
-    #         fnc.click_left(x, y)
-
-    # if compress == False and move == False:
-    #     print("No thresholds met, waiting...")
-    #     print("\n\n\n")
-    #     sleep(60)
+    else:
+        print("No thresholds met, waiting...")
+        print("\n\n\n")
 
 
-# done = False
-# while done != True:
-auto_move(1000, False)
+done = False
+while done != True:
+    auto_move(5000, False)
+    sleep(10)  # Run routine every 100 seconds
