@@ -1,4 +1,4 @@
-moon_ores = [
+compressible_ores = [
     "Bitumens",
     "Brimful Bitumens",
     "Coesite",

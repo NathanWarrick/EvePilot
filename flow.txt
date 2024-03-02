@@ -1,0 +1,7 @@
+START
+
+Is the hold filling up?
+    Check for Raw Ore
+        Compress raw ore
+    Check for Compressed Ore
+        Move compressed ore to orca

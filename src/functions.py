@@ -29,6 +29,22 @@ def click_left(x, y):
         win32api.mouse_event(win32con.MOUSEEVENTF_LEFTUP, 0, 0)
 
 
+def drag_left(x_start, y_start, x_end, y_end):
+
+    x_start = int(x_start)
+    y_start = int(y_start)
+    x_end = int(x_end)
+    y_end = int(y_end)
+
+    win32api.SetCursorPos((x_start, y_start))
+    sleep(0.2)
+    win32api.mouse_event(win32con.MOUSEEVENTF_LEFTDOWN, x_start, y_start, 0, 0)
+    sleep(0.2)
+    win32api.SetCursorPos((x_end, y_end))
+    sleep(0.2)
+    win32api.mouse_event(win32con.MOUSEEVENTF_LEFTUP, x_end, y_end, 0, 0)
+
+
 def click_right(x, y):
     if x is not None and y is not None:
         x = int(x)
@@ -103,6 +119,7 @@ def imagesearch(image: str, confidence=0.9, screen=0):
 
         res = cv2.matchTemplate(img_gray, template, cv2.TM_CCOEFF_NORMED)
         min_val, max_val, min_loc, max_loc = cv2.minMaxLoc(res)
+        print(max_val)
         if max_val < confidence:
             return [-1, -1]
 
