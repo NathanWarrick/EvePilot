@@ -6,3 +6,12 @@ moon_ores = [
     "Sylvite",
     "Brimful Sylvite",
 ]
+
+compressed_ores = [
+    "Compressed Bitumens",
+    "Compressed Brimful Bitumens",
+    "Compressed Coesite",
+    "Compressed Brimful Coesite",
+    "Compressed Sylvite",
+    "Compressed Brimful Sylvite",
+]
